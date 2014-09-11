@@ -16,7 +16,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 --]]
 
 _addon.name = 'anchor'
-_addon.version = '1.0.0'
+_addon.version = '1.0.1'
 _addon.command = 'anchor'
 _addon.author = 'Seth VanHeulen (Acacia@Odin)'
 
@@ -50,16 +50,17 @@ function check_incoming_chunk(id, original, modified, injected, blocked)
         local category = math.floor((original:byte(11) % 64) / 4)
         if category == 11 then
             local new = original
-            local startbit = 150
+            local position = 150
             for target = 1,original:byte(10) do
-                new = new:clearbits(startbit + 60, 3)
-                if original:checkbit(startbit + 121) then
-                    startbit = startbit + 37
+                new = new:clearbits(position + 60, 3)
+                local next_position = position + 123
+                if original:checkbit(position + 121) then
+                    next_position = next_position + 37
                 end
-                if original:checkbit(startbit + 122) then
-                    startbit = startbit + 34
+                if original:checkbit(position + 122) then
+                    next_position = next_position + 34
                 end
-                startbit = startbit + 123
+                position = next_position
             end
             return new
         end
