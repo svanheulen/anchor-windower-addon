@@ -30,7 +30,7 @@ end
 
 function check_incoming_chunk(id, original, modified, injected, blocked)
     if id == 0x28 then
-        local category = math.floor((original:bytes(11) % 64) / 4)
+        local category = math.floor((original:byte(11) % 64) / 4)
         if category == 11 then
             local new = original
             local startbit = 150
