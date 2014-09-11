@@ -24,12 +24,12 @@ function bit(p)
     return 2 ^ (p - 1)
 end
 
-function hasbit(x, p)
+function checkbit(x, p)
     return x % (p + p) >= p
 end
 
 function clearbit(x, p)
-    return hasbit(x, p) and x - p or x
+    return checkbit(x, p) and x - p or x
 end
 
 function string.clearbits(s, p, c)
@@ -42,7 +42,7 @@ end
 
 function string.checkbit(s, p)
     local b = s:byte(math.floor(p / 8) + 1)
-    return hasbit(b, p % 8)
+    return checkbit(b, bit(p % 8))
 end
 
 function check_incoming_chunk(id, original, modified, injected, blocked)
