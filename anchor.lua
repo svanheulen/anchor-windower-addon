@@ -16,11 +16,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 --]]
 
 _addon.name = 'anchor'
-_addon.version = '1.0.2'
+_addon.version = '1.0.3'
 _addon.command = 'anchor'
 _addon.author = 'Seth VanHeulen (Acacia@Odin)'
-
-require('luau')
 
 function bit(p)
     return 2 ^ p
@@ -63,7 +61,6 @@ function check_incoming_chunk(id, original, modified, injected, blocked)
                 end
                 position = next_position
             end
-            windower.add_to_chat(1, new:hex())
             return new
         end
     end
