@@ -15,10 +15,14 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 --]]
 
+-- addon information
+
 _addon.name = 'anchor'
 _addon.version = '1.0.3'
 _addon.command = 'anchor'
 _addon.author = 'Seth VanHeulen (Acacia@Odin)'
+
+-- bit manipulation helper functions
 
 function bit(p)
     return 2 ^ p
@@ -44,6 +48,8 @@ function string.checkbit(s, p)
     return checkbit(s:byte(math.floor(p / 8) + 1), bit(p % 8))
 end
 
+-- event callback functions
+
 function check_incoming_chunk(id, original, modified, injected, blocked)
     if id == 0x28 then
         local category = math.floor((original:byte(11) % 64) / 4)
@@ -65,5 +71,7 @@ function check_incoming_chunk(id, original, modified, injected, blocked)
         end
     end
 end
+
+-- register event callbacks
 
 windower.register_event('incoming chunk', check_incoming_chunk)
