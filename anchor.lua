@@ -16,12 +16,14 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 --]]
 
 _addon.name = 'anchor'
-_addon.version = '1.0.1'
+_addon.version = '1.0.2'
 _addon.command = 'anchor'
 _addon.author = 'Seth VanHeulen (Acacia@Odin)'
 
+require('luau')
+
 function bit(p)
-    return 2 ^ (p - 1)
+    return 2 ^ p
 end
 
 function checkbit(x, p)
@@ -41,8 +43,7 @@ function string.clearbits(s, p, c)
 end
 
 function string.checkbit(s, p)
-    local b = s:byte(math.floor(p / 8) + 1)
-    return checkbit(b, bit(p % 8))
+    return checkbit(s:byte(math.floor(p / 8) + 1), bit(p % 8))
 end
 
 function check_incoming_chunk(id, original, modified, injected, blocked)
@@ -62,6 +63,7 @@ function check_incoming_chunk(id, original, modified, injected, blocked)
                 end
                 position = next_position
             end
+            windower.add_to_chat(1, new:hex())
             return new
         end
     end
